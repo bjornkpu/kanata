@@ -1,0 +1,122 @@
+;; kanata config - custom keymap
+;; Space=nav layer, Grave=sys layer, GACS home row mods
+;; Nordic ISO layout (102-key with IntlBackslash)
+
+(defcfg
+  process-unmapped-keys yes
+  windows-altgr cancel-lctl-press
+  concurrent-tap-hold yes
+)
+
+;; Combos - press two keys together
+;; Syntax: (keys) action timeout release-behaviour (disabled-layers)
+(defchordsv2
+  (x c) (caps-word 2000) 200 first-release (gaming)  ;; X+C = Caps-word
+  (s d) tab              200 first-release (gaming)  ;; S+D = Tab
+  (d f) esc              200 first-release (gaming)  ;; D+F = Escape
+  (j k) bspc             200 first-release (gaming)  ;; J+K = Backspace
+  (k l) ret              200 first-release (gaming)  ;; K+L = Enter
+)
+
+;; Timing variables for home row mods (advanced anti-misfire)
+(defvar
+  tap-time 200
+  hold-time 200
+  ;; Keys that trigger early tap (same-hand keys)
+  left-hand-keys (
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    y u i o p [
+    h j k l ; '
+    n m , . /
+  )
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; Home row mod aliases (GACS layout)
+;; Using tap-hold-release-keys for better typing experience
+(defalias
+  ;; Left hand home row mods (no Meta on A - too many misfires)
+  s (tap-hold-release-keys $tap-time $hold-time s lalt $left-hand-keys)
+  d (tap-hold-release-keys $tap-time $hold-time d lctl $left-hand-keys)
+  f (tap-hold-release-keys $tap-time $hold-time f lsft $left-hand-keys)
+
+  ;; Right hand home row mods (mirrored)
+  j (tap-hold-release-keys $tap-time $hold-time j rsft $right-hand-keys)
+  k (tap-hold-release-keys $tap-time $hold-time k rctl $right-hand-keys)
+  l (tap-hold-release-keys $tap-time $hold-time l ralt $right-hand-keys)
+  ; (tap-hold-release-keys $tap-time $hold-time ; rmet $right-hand-keys)
+
+  ;; Space = tap space, hold nav layer
+  spc (tap-hold 0 200 spc (layer-while-held navigation))
+
+  ;; Grave = tap grave, hold sys layer
+  grv (tap-hold 0 300 grv (layer-while-held system))
+
+  ;; Caps = Escape
+  cap esc
+
+  ;; System functions
+  gam (layer-switch gaming) ;; Switch to gaming layer
+  bas (layer-switch base)   ;; Switch back to base layer
+
+  ;; Symbols for NAV layer (Nordic ISO mappings)
+  lc AG-7             ;; { left curly
+  rc AG-0             ;; } right curly
+  lb AG-8             ;; [ left bracket
+  rb AG-9             ;; ] right bracket
+  la 102d             ;; < less than (IntlBackslash on Nordic)
+  ra S-102d           ;; > greater than
+  bt (macro S-= spc)  ;; ` backtick (dead key + space to output)
+  bs =                ;; \ backslash (Nordic: AltGr + plus key)
+  ex S-1              ;; !
+  at S-2              ;; @
+  hs S-3              ;; #
+  am S-6              ;; &
+  qu S--              ;; ?
+  dl AG-4             ;; $
+  pc S-5              ;; %
+  sl S-7              ;; / (Nordic: S-7)
+)
+
+(deflayer base
+  @grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  @cap a    @s   @d   @f   g    h    @j   @k   @l   @;   '    \    ret
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @spc           ralt rmet rctl
+)
+
+(deflayer navigation
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    vold prev pp   next volu _    bspc up   del  ret  @lc  @rc
+  _    lmet lalt lctl lsft @bt  home left down rght end  @lb  @rb  _
+  @sl  @dl  @ex  @at  @hs  @am  @qu  pgdn pgup @la  @ra  @pc  @bs
+  _    _    _              _              _    _    _
+)
+
+(deflayer system
+  _    lrld @gam _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+)
+
+(deflayer gaming
+  @bas 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)

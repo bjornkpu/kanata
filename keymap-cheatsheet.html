@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kanata Keymap Cheat Sheet</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 5mm;
+    }
+
+    :root {
+      --u: 26px;
+      --gap: 2px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      padding: 8px;
+      max-width: 290mm;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: #00d9ff;
+      letter-spacing: 2px;
+    }
+
+    h1 span {
+      font-size: 0.6rem;
+      color: #888;
+    }
+
+    .layers {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .layer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 0.7rem;
+      margin-bottom: 4px;
+      padding: 2px 8px;
+      background: #16213e;
+      border-left: 3px solid #00d9ff;
+      align-self: stretch;
+    }
+
+    .keyboard {
+      display: flex;
+      background: #16213e;
+      padding: 6px;
+      border-radius: 6px;
+      align-self: stretch;
+      justify-content: center;
+    }
+
+    .keys-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+
+    .row {
+      display: flex;
+      gap: var(--gap);
+    }
+
+    /* Wrapper for rows 2-3 to position ISO enter */
+    .enter-rows {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+      position: relative;
+      width: fit-content;
+      padding-right: calc(var(--u) * 1.3 + var(--gap));
+    }
+
+    .key {
+      height: var(--u);
+      background: #2d3a4f;
+      border: 1px solid #3d4f6f;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Key sizes in units */
+    .k1 {
+      width: var(--u);
+    }
+
+    .k125 {
+      width: calc(var(--u) * 1.25);
+    }
+
+    .k15 {
+      width: calc(var(--u) * 1.5);
+    }
+
+    .k175 {
+      width: calc(var(--u) * 1.75);
+    }
+
+    .k2 {
+      width: calc(var(--u) * 2);
+    }
+
+    .k225 {
+      width: calc(var(--u) * 2.25);
+    }
+
+    .k275 {
+      width: calc(var(--u) * 2.75);
+    }
+
+    .k625 {
+      width: calc(var(--u) * 6.25);
+    }
+
+    .k650 {
+      width: calc(var(--u) * 6.50);
+    }
+
+    .k675 {
+      width: calc(var(--u) * 6.75);
+    }
+
+    /* ISO Enter - L shape spanning 2 rows (wider on top) */
+    .iso-enter {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: calc(var(--u) * 1.5);
+      height: calc(var(--u) * 2 + var(--gap));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+      font-weight: bold;
+    }
+
+    .iso-enter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: calc(var(--u) * 1.5);
+      height: var(--u);
+      background: #2d3a4f;
+      border: 1px solid #3d4f6f;
+      border-radius: 3px 3px 3px 0;
+      border-bottom: none;
+    }
+
+    .iso-enter::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: calc(var(--u) * 1.25);
+      height: var(--u);
+      background: #2d3a4f;
+      border: 1px solid #3d4f6f;
+      border-radius: 0 0 3px 3px;
+      border-top: none;
+    }
+
+    .iso-enter span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .iso-enter.blank::before,
+    .iso-enter.blank::after {
+      background: #222;
+      border-color: #333;
+    }
+
+    .key .main {
+      font-weight: bold;
+      font-size: 0.55rem;
+    }
+
+    .key .sub {
+      font-size: 0.4rem;
+      color: #888;
+    }
+
+    .key.mod {
+      background: #1e3a5f;
+      border-color: #00d9ff;
+    }
+
+    .key.mod .sub {
+      color: #00d9ff;
+    }
+
+    .key.layer-key {
+      background: #3d1f5c;
+      border-color: #b44fff;
+    }
+
+    .key.layer-key .sub {
+      color: #b44fff;
+    }
+
+    .key.action {
+      background: #1f4f3a;
+      border-color: #00ff88;
+    }
+
+    .key.nav {
+      background: #4f3a1f;
+      border-color: #ffaa00;
+    }
+
+    .key.media {
+      background: #4f1f3a;
+      border-color: #ff5588;
+    }
+
+    .key.fn {
+      background: #2a2a4a;
+      border-color: #8888ff;
+    }
+
+    .key.symbol {
+      background: #2a4a3a;
+      border-color: #44ddaa;
+    }
+
+    .key.held {
+      background: #5a1f5a;
+      border-color: #ff00ff;
+    }
+
+    .key.blank {
+      background: #222;
+      border-color: #333;
+      color: #444;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.55rem;
+      margin: 6px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .quick-ref {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      background: #16213e;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.55rem;
+    }
+
+    .quick-ref h3 {
+      font-size: 0.6rem;
+      color: #00d9ff;
+      margin-bottom: 3px;
+    }
+
+    .quick-ref ul {
+      list-style: none;
+    }
+
+    .quick-ref li {
+      padding: 1px 0;
+    }
+
+    .quick-ref code {
+      background: #2d3a4f;
+      padding: 0px 3px;
+      border-radius: 2px;
+      font-family: monospace;
+      font-size: 0.55rem;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+        padding: 5mm;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      h1 {
+        color: #0088aa;
+      }
+
+      h2 {
+        background: #eee;
+        border-color: #0088aa;
+      }
+
+      .keyboard {
+        background: #f5f5f5;
+      }
+
+      .key {
+        background: white;
+        border-color: #ccc;
+      }
+
+      .key .sub {
+        color: #666;
+      }
+
+      .key.mod {
+        background: #d0e8ff !important;
+        border-color: #0088cc !important;
+      }
+
+      .key.layer-key {
+        background: #e8d0ff !important;
+        border-color: #8844cc !important;
+      }
+
+      .key.action {
+        background: #d0ffd8 !important;
+        border-color: #00aa44 !important;
+      }
+
+      .key.nav {
+        background: #fff0d0 !important;
+        border-color: #cc8800 !important;
+      }
+
+      .key.media {
+        background: #ffd0e0 !important;
+        border-color: #cc4466 !important;
+      }
+
+      .key.fn {
+        background: #e0e0ff !important;
+        border-color: #6666cc !important;
+      }
+
+      .key.symbol {
+        background: #d0ffe8 !important;
+        border-color: #22aa77 !important;
+      }
+
+      .key.held {
+        background: #f0d0f0 !important;
+        border-color: #aa44aa !important;
+      }
+
+      .key.blank {
+        background: #eee !important;
+        color: #999;
+      }
+
+      .iso-enter::before,
+      .iso-enter::after {
+        background: white;
+        border-color: #ccc;
+      }
+
+      .iso-enter.blank::before,
+      .iso-enter.blank::after {
+        background: #eee;
+        border-color: #ccc;
+      }
+
+      .quick-ref {
+        background: #f5f5f5;
+      }
+
+      .quick-ref h3 {
+        color: #0088aa;
+      }
+
+      .quick-ref code {
+        background: #e5e5e5;
+      }
+
+      .legend-color {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>KANATA KEYMAP <span>(Nordic ISO)</span></h1>
+
+  <div class="layers">
+    <div class="layer">
+      <h2>BASE LAYER</h2>
+      <div class="keyboard">
+        <div class="keys-container">
+          <!-- Row 1: Number row -->
+          <div class="row">
+            <div class="key k1 layer-key"><span class="main">§</span><span class="sub">→SYS</span></div>
+            <div class="key k1"><span class="main">1</span></div>
+            <div class="key k1"><span class="main">2</span></div>
+            <div class="key k1"><span class="main">3</span></div>
+            <div class="key k1"><span class="main">4</span></div>
+            <div class="key k1"><span class="main">5</span></div>
+            <div class="key k1"><span class="main">6</span></div>
+            <div class="key k1"><span class="main">7</span></div>
+            <div class="key k1"><span class="main">8</span></div>
+            <div class="key k1"><span class="main">9</span></div>
+            <div class="key k1"><span class="main">0</span></div>
+            <div class="key k1"><span class="main">+</span></div>
+            <div class="key k1"><span class="main">´</span></div>
+            <div class="key k2"><span class="main">BKSP</span></div>
+          </div>
+          <!-- Rows 2-3 wrapper for ISO Enter -->
+          <div class="enter-rows">
+            <div class="iso-enter"><span>⏎</span></div>
+            <!-- Row 2: Tab row -->
+            <div class="row">
+              <div class="key k15"><span class="main">TAB</span></div>
+              <div class="key k1"><span class="main">Q</span></div>
+              <div class="key k1"><span class="main">W</span></div>
+              <div class="key k1"><span class="main">E</span></div>
+              <div class="key k1"><span class="main">R</span></div>
+              <div class="key k1"><span class="main">T</span></div>
+              <div class="key k1"><span class="main">Y</span></div>
+              <div class="key k1"><span class="main">U</span></div>
+              <div class="key k1"><span class="main">I</span></div>
+              <div class="key k1"><span class="main">O</span></div>
+              <div class="key k1"><span class="main">P</span></div>
+              <div class="key k1"><span class="main">Å</span></div>
+              <div class="key k1"><span class="main">¨</span></div>
+            </div>
+            <!-- Row 3: Home row -->
+            <div class="row">
+              <div class="key k175 action"><span class="main">ESC</span><span class="sub">caps</span></div>
+              <div class="key k1"><span class="main">A</span></div>
+              <div class="key k1 mod"><span class="main">S</span><span class="sub">ALT</span></div>
+              <div class="key k1 mod"><span class="main">D</span><span class="sub">CTRL</span></div>
+              <div class="key k1 mod"><span class="main">F</span><span class="sub">SHFT</span></div>
+              <div class="key k1"><span class="main">G</span></div>
+              <div class="key k1"><span class="main">H</span></div>
+              <div class="key k1 mod"><span class="main">J</span><span class="sub">SHFT</span></div>
+              <div class="key k1 mod"><span class="main">K</span><span class="sub">CTRL</span></div>
+              <div class="key k1 mod"><span class="main">L</span><span class="sub">ALT</span></div>
+              <div class="key k1 mod"><span class="main">Ø</span><span class="sub">META</span></div>
+              <div class="key k1"><span class="main">Æ</span></div>
+              <div class="key k1"><span class="main">'</span></div>
+            </div>
+          </div>
+          <!-- Row 4: Shift row -->
+          <div class="row">
+            <div class="key k125"><span class="main">SHFT</span></div>
+            <div class="key k1"><span class="main">&lt;</span></div>
+            <div class="key k1"><span class="main">Z</span></div>
+            <div class="key k1"><span class="main">X</span></div>
+            <div class="key k1"><span class="main">C</span></div>
+            <div class="key k1"><span class="main">V</span></div>
+            <div class="key k1"><span class="main">B</span></div>
+            <div class="key k1"><span class="main">N</span></div>
+            <div class="key k1"><span class="main">M</span></div>
+            <div class="key k1"><span class="main">,</span></div>
+            <div class="key k1"><span class="main">.</span></div>
+            <div class="key k1"><span class="main">-</span></div>
+            <div class="key k175"><span class="main">SHIFT</span></div>
+          </div>
+          <!-- Row 5: Bottom row -->
+          <div class="row">
+            <div class="key k125"><span class="main">CTRL</span></div>
+            <div class="key k125"><span class="main">WIN</span></div>
+            <div class="key k125"><span class="main">ALT</span></div>
+            <div class="key k675 layer-key"><span class="main">SPACE</span><span class="sub">hold → NAV</span></div>
+            <div class="key k1"><span class="main">ALT</span></div>
+            <div class="key k1"><span class="main">FN</span></div>
+            <div class="key k1"><span class="main">CTRL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <h2>NAV LAYER (hold SPACE)</h2>
+      <div class="keyboard">
+        <div class="keys-container">
+          <!-- Row 1: F-keys -->
+          <div class="row">
+            <div class="key k1 blank"><span class="main">·</span></div>
+            <div class="key k1 fn"><span class="main">F1</span></div>
+            <div class="key k1 fn"><span class="main">F2</span></div>
+            <div class="key k1 fn"><span class="main">F3</span></div>
+            <div class="key k1 fn"><span class="main">F4</span></div>
+            <div class="key k1 fn"><span class="main">F5</span></div>
+            <div class="key k1 fn"><span class="main">F6</span></div>
+            <div class="key k1 fn"><span class="main">F7</span></div>
+            <div class="key k1 fn"><span class="main">F8</span></div>
+            <div class="key k1 fn"><span class="main">F9</span></div>
+            <div class="key k1 fn"><span class="main">F10</span></div>
+            <div class="key k1 fn"><span class="main">F11</span></div>
+            <div class="key k1 fn"><span class="main">F12</span></div>
+            <div class="key k2 blank"><span class="main">·</span></div>
+          </div>
+          <!-- Rows 2-3 wrapper for ISO Enter -->
+          <div class="enter-rows">
+            <div class="iso-enter blank"><span>·</span></div>
+            <!-- Row 2: Media + nav + symbols -->
+            <div class="row">
+              <div class="key k15 blank"><span class="main">·</span></div>
+              <div class="key k1 media"><span class="main">V-</span></div>
+              <div class="key k1 media"><span class="main">◄◄</span></div>
+              <div class="key k1 media"><span class="main">▶❚❚</span></div>
+              <div class="key k1 media"><span class="main">►►</span></div>
+              <div class="key k1 media"><span class="main">V+</span></div>
+              <div class="key k1 blank"><span class="main">·</span></div>
+              <div class="key k1 action"><span class="main">⌫</span></div>
+              <div class="key k1 nav"><span class="main">↑</span></div>
+              <div class="key k1 action"><span class="main">DEL</span></div>
+              <div class="key k1 action"><span class="main">RET</span></div>
+              <div class="key k1 symbol"><span class="main">{</span></div>
+              <div class="key k1 symbol"><span class="main">}</span></div>
+            </div>
+            <!-- Row 3: Mods + arrows + symbols -->
+            <div class="row">
+              <div class="key k175 blank"><span class="main">·</span></div>
+              <div class="key k1 blank"><span class="main">·</span></div>
+              <div class="key k1 mod"><span class="main">ALT</span></div>
+              <div class="key k1 mod"><span class="main">CTRL</span></div>
+              <div class="key k1 mod"><span class="main">SHFT</span></div>
+              <div class="key k1 symbol"><span class="main">`</span></div>
+              <div class="key k1 nav"><span class="main">HOM</span></div>
+              <div class="key k1 nav"><span class="main">←</span></div>
+              <div class="key k1 nav"><span class="main">↓</span></div>
+              <div class="key k1 nav"><span class="main">→</span></div>
+              <div class="key k1 nav"><span class="main">END</span></div>
+              <div class="key k1 symbol"><span class="main">[</span></div>
+              <div class="key k1 symbol"><span class="main">]</span></div>
+            </div>
+          </div>
+          <!-- Row 4: Symbols + page nav -->
+          <div class="row">
+            <div class="key k125 symbol"><span class="main">/</span></div>
+            <div class="key k1 symbol"><span class="main">$</span></div>
+            <div class="key k1 symbol"><span class="main">!</span></div>
+            <div class="key k1 symbol"><span class="main">@</span></div>
+            <div class="key k1 symbol"><span class="main">#</span></div>
+            <div class="key k1 symbol"><span class="main">&amp;</span></div>
+            <div class="key k1 symbol"><span class="main">?</span></div>
+            <div class="key k1 nav"><span class="main">PGD</span></div>
+            <div class="key k1 nav"><span class="main">PGU</span></div>
+            <div class="key k1 symbol"><span class="main">&lt;</span></div>
+            <div class="key k1 symbol"><span class="main">&gt;</span></div>
+            <div class="key k1 symbol"><span class="main">%</span></div>
+            <div class="key k175 symbol"><span class="main">\</span></div>
+          </div>
+          <!-- Row 5: Space held -->
+          <div class="row">
+            <div class="key k125 blank"><span class="main">·</span></div>
+            <div class="key k125 blank"><span class="main">·</span></div>
+            <div class="key k125 blank"><span class="main">·</span></div>
+            <div class="key k675 held"><span class="main">▓▓▓ HELD ▓▓▓</span></div>
+            <div class="key k1 blank"><span class="main">·</span></div>
+            <div class="key k1 blank"><span class="main">·</span></div>
+            <div class="key k1 blank"><span class="main">·</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background:#1e3a5f;border-color:#00d9ff;"></div> Modifier (hold)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#3d1f5c;border-color:#b44fff;"></div> Layer
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#4f3a1f;border-color:#ffaa00;"></div> Navigation
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#4f1f3a;border-color:#ff5588;"></div> Media
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#2a2a4a;border-color:#8888ff;"></div> F-Keys
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#1f4f3a;border-color:#00ff88;"></div> Action
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#2a4a3a;border-color:#44ddaa;"></div> Symbol
+    </div>
+  </div>
+
+  <div class="quick-ref">
+    <div>
+      <h3>HOME ROW MODS</h3>
+      <ul>
+        <li><code>S</code> Alt · <code>D</code> Ctrl</li>
+        <li><code>F</code> Shift · <code>J K L Ø</code> mirror</li>
+      </ul>
+    </div>
+    <div>
+      <h3>COMBOS</h3>
+      <ul>
+        <li><code>X+C</code> Caps-word</li>
+        <li><code>S+D</code> Tab · <code>D+F</code> Esc</li>
+        <li><code>J+K</code> Bksp · <code>K+L</code> Ret</li>
+      </ul>
+    </div>
+    <div>
+      <h3>SYSTEM (§+key)</h3>
+      <ul>
+        <li><code>§+1</code> Reload config</li>
+        <li><code>§+2</code> Gaming mode</li>
+        <li><em>Gaming: § to exit</em></li>
+      </ul>
+    </div>
+    <div>
+      <h3>NAV ARROWS</h3>
+      <ul>
+        <li><code>H J K L</code> ← ↓ ↑ →</li>
+        <li><code>H</code> Home · <code>Ø</code> End</li>
+        <li><code>N</code> PgDn · <code>M</code> PgUp</li>
+      </ul>
+    </div>
+    <div>
+      <h3>NAV ACTIONS</h3>
+      <ul>
+        <li><code>U</code> Bksp · <code>O</code> Del</li>
+        <li><code>P</code> Enter · <code>G</code> `</li>
+      </ul>
+    </div>
+    <div>
+      <h3>NAV SYMBOLS</h3>
+      <ul>
+        <li><code>[ ]</code> { } · <code>' \</code> [ ]</li>
+        <li><code>, .</code> &lt; &gt; · <code>/</code> %</li>
+        <li><code>Z-B</code> !@#&amp;? · <code>RSH</code> \</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
