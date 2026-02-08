@@ -11,8 +11,8 @@
 ;; Combos - press two keys together
 ;; Syntax: (keys) action timeout release-behaviour (disabled-layers)
 (defchordsv2
-  (x c) (caps-word 2000) 200 first-release (gaming)  ;; X+C = Caps-word
-  (s d) tab              200 first-release (gaming)  ;; S+D = Tab
+  ;; (x c) (caps-word 2000) 200 first-release (gaming)  ;; X+C = Caps-word
+  ;; (s d) tab              200 first-release (gaming)  ;; S+D = Tab
   (d f) esc              200 first-release (gaming)  ;; D+F = Escape
   (j k) bspc             200 first-release (gaming)  ;; J+K = Backspace
   (k l) ret              200 first-release (gaming)  ;; K+L = Enter
