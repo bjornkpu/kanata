@@ -75,6 +75,8 @@
   rc AG-0             ;; } right curly
   lb AG-8             ;; [ left bracket
   rb AG-9             ;; ] right bracket
+  lp S-8              ;; (
+  rp S-9              ;; )
   la 102d             ;; < less than (IntlBackslash on Nordic)
   ra S-102d           ;; > greater than
   bt (macro S-= spc)  ;; ` backtick (dead key + space to output)
@@ -101,7 +103,7 @@
   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
   _    vold prev pp   next volu _    bspc up   del  ret  @lc  @rc
   _    lmet lalt lctl lsft @bt  home left down rght end  @lb  @rb  _
-  @sl  @dl  @ex  @at  @hs  @am  @qu  pgdn pgup @la  @ra  @pc  @bs
+  @sl  @dl  @ex  @at  @hs  @am  @qu  pgdn pgup @lp  @rp  @pc  @bs
   _    _    _              _              _    _    _
 )
 
