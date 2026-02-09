@@ -93,7 +93,7 @@
   pc S-5              ;; %
   sl S-7              ;; / (Nordic: S-7)
   ;; Markdown code block macro
-  mdc (macro S-= S-= S-= ret ret S-= S-= S-= spc up left)
+  mdc (macro S-= S-= S-= S-ret S-ret S-= S-= S-= spc up left)
 )
 
 (deflayer base
