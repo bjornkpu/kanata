@@ -66,6 +66,9 @@
   ;; Caps = Escape
   cap esc
 
+  ;; AltGr = hold for symbol layer
+  agr (tap-hold 0 200 ralt (layer-while-held symbols))
+
   ;; System functions
   gam (layer-switch gaming) ;; Switch to gaming layer
   bas (layer-switch base)   ;; Switch back to base layer
@@ -89,6 +92,8 @@
   dl AG-4             ;; $
   pc S-5              ;; %
   sl S-7              ;; / (Nordic: S-7)
+  ;; Markdown code block macro
+  mdc (macro S-= S-= S-= ret ret S-= S-= S-= spc up left)
 )
 
 (deflayer base
@@ -96,7 +101,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]
   @cap a    @s   @d   @f   g    h    @j   @k   @l   @;   '    \    ret
   lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           @spc           ralt rmet rctl
+  lctl lmet lalt           @spc           @agr rmet rctl
 )
 
 (deflayer navigation
@@ -104,6 +109,14 @@
   _    vold prev pp   next volu _    bspc up   del  ret  @lc  @rc
   _    lmet lalt lctl lsft @bt  home left down rght end  @lb  @rb  _
   @sl  @dl  @ex  @at  @hs  @am  @qu  pgdn pgup @lp  @rp  @pc  @bs
+  _    _    _              _              _    _    _
+)
+
+(deflayer symbols
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    @mdc _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _    _
 )
 
