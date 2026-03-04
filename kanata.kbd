@@ -93,7 +93,8 @@
   pc S-5              ;; %
   sl S-7              ;; / (Nordic: S-7)
   ;; Markdown code block macro
-  mdc (macro S-= S-= S-= S-ret S-ret S-= S-= S-= spc up left)
+  mdc (macro S-= S-= S-= spc S-ret S-ret S-= S-= S-= spc up left)
+  mcs1 M-C-A-1
 )
 
 (deflayer base
@@ -106,14 +107,14 @@
 
 (deflayer navigation
   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-  _    vold prev pp   next volu _    bspc up   del  ret  @lc  @rc
+  _    vold prev pp   next volu @mcs1 bspc up   del  ret  @lc  @rc
   _    lmet lalt lctl lsft @bt  home left down rght end  @lb  @rb  _
   @sl  @dl  @ex  @at  @hs  @am  @qu  pgdn pgup @lp  @rp  @pc  @bs
   _    _    _              _              _    _    _
 )
 
 (deflayer symbols
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    AG-2 AG-3 AG-4 AG-5 AG-6 AG-7 AG-8 AG-9 AG-0 AG-- AG-= _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    @mdc _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
